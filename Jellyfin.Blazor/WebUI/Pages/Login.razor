@@ -1,0 +1,41 @@
+﻿@page "/login"
+@attribute [AllowAnonymous]
+
+<EditForm Model="@_loginPageModel" OnValidSubmit="HandleLogin">
+    <DataAnnotationsValidator/>
+    <div class="p-5">
+        <div class="mb-3">
+            <label for="inputHost" class="form-label">Host</label>
+            <InputText id="inputHost" class="form-control"
+                       @bind-Value="_loginPageModel.Host" autofocus placeholder="Host" autocomplete="server"/>
+            <ValidationMessage For="@(() => _loginPageModel.Host)"/>
+        </div>
+
+        <div class="mb-3">
+            <label for="inputUsername" class="form-label">Username</label>
+            <InputText id="inputUsername" class="form-control"
+                       @bind-Value="_loginPageModel.Username" placeholder="Username" autocomplete="username"/>
+            <ValidationMessage For="@(() => _loginPageModel.Username)"/>
+        </div>
+
+        <div class="mb-3">
+            <label for="inputPassword" class="form-label">Password</label>
+            <InputText type="password" id="inputPassword" class="form-control"
+                       placeholder="Password" @bind-Value="_loginPageModel.Password" autocomplete="current-password"/>
+            <ValidationMessage For="@(() => _loginPageModel.Password)"/>
+        </div>
+
+        @if (!string.IsNullOrEmpty(_error))
+        {
+            <div>
+                <label class="text-danger form-label">@_error</label>
+            </div>
+        }
+
+        @if (!_loading)
+        {
+            <button class="btn btn-primary" type="submit">Sign in</button>
+        }
+
+    </div>
+</EditForm>
