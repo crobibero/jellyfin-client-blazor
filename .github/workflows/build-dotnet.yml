@@ -24,6 +24,11 @@ jobs:
         with:
           dotnet-version: 6.0.100-preview.3.21202.5
 
+      - name: Setup node environment
+        uses: actions/setup-node@v2.1.5
+        with:
+          node-version: 14
+
       - name: Install dependencies
         run: dotnet restore
 
