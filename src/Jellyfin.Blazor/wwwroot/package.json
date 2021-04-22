@@ -1,0 +1,13 @@
+{
+  "name": "jellyfin-blazor",
+  "scripts": {
+    "build-css-dev": "tailwindcss build css/tailwind.css -o css/tailwind.g.css",
+    "build-css-prod": "cross-env NODE_ENV=production tailwindcss build css/tailwind.css -o css/tailwind.g.css"
+  },
+  "dependencies": {
+    "autoprefixer": "^10.2.5",
+    "postcss": "^8.2.12",
+    "postcss-cli": "^8.3.1",
+    "tailwindcss": "^2.1.1"
+  }
+}

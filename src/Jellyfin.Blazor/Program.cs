@@ -36,8 +36,9 @@ namespace Jellyfin.Blazor
             // Add external services
 
             // Register app-specific services
-            builder.Services.AddHttpClient(NamedClient.Default, c =>
+            /*builder.Services.AddHttpClient(NamedClient.Default, c =>
             {
+                // TODO toggle between WASM and native HttpClient.
                 // TODO replace with client name and version.
                 c.DefaultRequestHeaders.UserAgent.Add(
                     new ProductInfoHeaderValue(
@@ -46,7 +47,11 @@ namespace Jellyfin.Blazor
                 c.DefaultRequestHeaders.Accept.Add(
                     new MediaTypeWithQualityHeaderValue(MediaTypeNames.Application.Json, 1.0));
                 c.DefaultRequestHeaders.Accept.Add(
-                    new MediaTypeWithQualityHeaderValue("*/*", 0.8));
+                    new MediaTypeWithQualityHeaderValue("#1#*", 0.8));
+            });*/
+            builder.Services.AddScoped(sp => new HttpClient
+            {
+                BaseAddress = new Uri(builder.HostEnvironment.BaseAddress)
             });
 
             // Register services

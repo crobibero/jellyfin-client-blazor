@@ -239,41 +239,6 @@ pip-log.txt
 ##########
 .idea/
 
-#########################
-# Build artifacts
-#########################
-
-# Artifacts for debian-x64
-debian/.debhelper/
-debian/*.debhelper
-debian/debhelper-build-stamp
-debian/files
-debian/jellyfin.substvars
-debian/jellyfin/
-# Don't ignore the debian/bin folder
-!debian/bin/
-
-deployment/**/dist/
-deployment/**/pkg-dist/
-deployment/**/pkg-dist-tmp/
-deployment/collect-dist/
-
-jellyfin_version.ini
-
-ci/
-
-# Doxygen
-doc/
-
-# Deployment artifacts
-dist
-*.exe
-
-# BenchmarkDotNet artifacts
-BenchmarkDotNet.Artifacts
-
-# Ignore web artifacts from native builds
-web/
-web-src.*
-MediaBrowser.WebDashboard/jellyfin-web
-apiclient/generated
+# Ignore any generated css files
+*.g.css
+node_modules/
