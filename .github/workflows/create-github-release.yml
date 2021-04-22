@@ -1,8 +1,8 @@
 name: Publish Drafted GitHub Release
 
 on:
-  #push:
-  #  tags: [ 'v*' ]
+  push:
+    tags: [ 'v*' ]
 
 jobs:
   publish_release_draft:

@@ -19,7 +19,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Setup .NET Core
+      - name: Setup dotnet
         uses: actions/setup-dotnet@v1
         with:
           dotnet-version: 6.0.100-preview.3.21202.5
@@ -29,8 +29,11 @@ jobs:
         with:
           node-version: 14
 
-      - name: Install dependencies
+      - name: Install dotnet dependencies
         run: dotnet restore
+
+      - name: Install node dependencies
+        run: npm ci --no-audit
 
       - name: Build
         run: dotnet build --configuration Release --no-restore
