@@ -10,10 +10,16 @@
         <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
         <Nullable>enable</Nullable>
         <AnalysisMode>AllEnabledByDefault</AnalysisMode>
-        <CodeAnalysisRuleSet>../jellyfin.ruleset</CodeAnalysisRuleSet>        
+        <CodeAnalysisRuleSet>../jellyfin.ruleset</CodeAnalysisRuleSet>      
+        <NoWarn>CA1031</NoWarn>
     </PropertyGroup>
 
     <ItemGroup>
+        <PackageReference Include="Blazor.Extensions.Logging" Version="2.0.4" />
+        <PackageReference Include="Blazorise" Version="0.9.3.5" />
+        <PackageReference Include="Blazorise.Bulma" Version="0.9.3.5" />
+        <PackageReference Include="Blazorise.Icons.FontAwesome" Version="0.9.3.5" />
+        <PackageReference Include="Blazorise.Sidebar" Version="0.9.3.5" />
         <PackageReference Include="Jellyfin.Sdk" Version="10.7.2.2" />
         <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="6.0.0-preview.3.21201.13" />
         <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="6.0.0-preview.3.21201.13" PrivateAssets="all" />
@@ -27,27 +33,5 @@
         <PackageReference Include="StyleCop.Analyzers" Version="1.1.118" PrivateAssets="All" />
         <PackageReference Include="SmartAnalyzers.MultithreadingAnalyzer" Version="1.1.31" PrivateAssets="All" />
     </ItemGroup>
-    <ItemGroup>
-      <_ContentIncludedByDefault Remove="wwwroot\sample-data\weather.json" />
-      <_ContentIncludedByDefault Remove="wwwroot\css\open-iconic\FONT-LICENSE" />
-      <_ContentIncludedByDefault Remove="wwwroot\css\open-iconic\font\css\open-iconic-bootstrap.min.css" />
-      <_ContentIncludedByDefault Remove="wwwroot\css\open-iconic\font\fonts\open-iconic.eot" />
-      <_ContentIncludedByDefault Remove="wwwroot\css\open-iconic\font\fonts\open-iconic.otf" />
-      <_ContentIncludedByDefault Remove="wwwroot\css\open-iconic\font\fonts\open-iconic.svg" />
-      <_ContentIncludedByDefault Remove="wwwroot\css\open-iconic\font\fonts\open-iconic.ttf" />
-      <_ContentIncludedByDefault Remove="wwwroot\css\open-iconic\font\fonts\open-iconic.woff" />
-      <_ContentIncludedByDefault Remove="wwwroot\css\open-iconic\ICON-LICENSE" />
-      <_ContentIncludedByDefault Remove="wwwroot\css\open-iconic\README.md" />
-    </ItemGroup>
-    <ItemGroup>
-      <Content Update="wwwroot\css\tailwind.g.css">
-        <DependentUpon>tailwind.css</DependentUpon>
-      </Content>
-    </ItemGroup>
-    <Target Name="BuildCssDev" Condition="'$(Configuration)' == 'Debug'" BeforeTargets="Build">
-        <Exec Command="npm --prefix wwwroot run build-css-dev" />
-    </Target>
-    <Target Name="BuildCssProd" Condition="'$(Configuration)' == 'Release'" BeforeTargets="Build">
-        <Exec Command="npm --prefix wwwroot run build-css-prod" />
-    </Target>
+
 </Project>

@@ -1,29 +1,29 @@
-<div class="top-row pl-4 navbar navbar-dark">
-    <a class="navbar-brand" href="">My Hybrid App</a>
-    <button class="navbar-toggler" @onclick="ToggleNavMenu">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-</div>
-
-<div class="@NavMenuCssClass" @onclick="ToggleNavMenu">
-    <ul class="nav flex-column">
-        <li class="nav-item px-3">
-            <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
-                <span class="oi oi-home" aria-hidden="true"></span> Dashboard
-            </NavLink>
-        </li>
-
-        @if (_views?.Items != null)
-        {
-            @foreach (var view in _views.Items)
-            {
-                <li class="nav-item px-3">
-                    <NavLink class="nav-link" href="">
-                        <span class="oi oi-plus" aria-hidden="true"></span> @view.Name
-                    </NavLink>
-                </li>
-            }
-        }
-
-    </ul>
-</div>
+<Sidebar>
+    <SidebarContent>
+        <SidebarBrand>
+            Jellyfin
+        </SidebarBrand>
+        <SidebarNavigation>
+            <SidebarItem>
+                <SidebarLink To="" Title="Dashboard">
+                    <Icon Name="IconName.Home" Margin="Margin.Is3.FromRight"/>
+                    Dashboard
+                </SidebarLink>
+            </SidebarItem>
+            <Repeater Items="_views?.Items">
+                <SidebarItem>
+                    <SidebarLink To="@($"view/{@context.Id}")" Title="@context.Name">
+                        <Icon Name="IconName.Tv" Margin="Margin.Is3.FromRight"/>
+                        @context.Name
+                    </SidebarLink>
+                </SidebarItem>
+            </Repeater>
+            <SidebarItem>
+                <SidebarLink To="logout" Title="Logout">
+                    <Icon Name="IconName.Clear"/>
+                    Logout
+                </SidebarLink>
+            </SidebarItem>
+        </SidebarNavigation>
+    </SidebarContent>
+</Sidebar>

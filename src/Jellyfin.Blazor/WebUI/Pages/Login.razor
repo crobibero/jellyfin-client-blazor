@@ -1,41 +1,61 @@
 ﻿@page "/login"
 @attribute [AllowAnonymous]
 
-<EditForm Model="@_loginPageModel" OnValidSubmit="HandleLogin">
-    <DataAnnotationsValidator/>
-    <div class="p-5">
-        <div class="mb-3">
-            <label for="inputHost" class="form-label">Host</label>
-            <InputText id="inputHost" class="form-control"
-                       @bind-Value="_loginPageModel.Host" autofocus placeholder="Host" autocomplete="server"/>
-            <ValidationMessage For="@(() => _loginPageModel.Host)"/>
-        </div>
-
-        <div class="mb-3">
-            <label for="inputUsername" class="form-label">Username</label>
-            <InputText id="inputUsername" class="form-control"
-                       @bind-Value="_loginPageModel.Username" placeholder="Username" autocomplete="username"/>
-            <ValidationMessage For="@(() => _loginPageModel.Username)"/>
-        </div>
-
-        <div class="mb-3">
-            <label for="inputPassword" class="form-label">Password</label>
-            <InputText type="password" id="inputPassword" class="form-control"
-                       placeholder="Password" @bind-Value="_loginPageModel.Password" autocomplete="current-password"/>
-            <ValidationMessage For="@(() => _loginPageModel.Password)"/>
-        </div>
-
-        @if (!string.IsNullOrEmpty(_error))
-        {
-            <div>
-                <label class="text-danger form-label">@_error</label>
-            </div>
-        }
-
-        @if (!_loading)
-        {
-            <button class="btn btn-primary" type="submit">Sign in</button>
-        }
-
-    </div>
-</EditForm>
+<Form Model="@_loginPageModel">
+    <Row>
+        <Column>
+            <Card Margin="Margin.Is4.OnY">
+                <CardHeader>
+                    <CardTitle Alignment="TextAlignment.Center">Login</CardTitle>
+                </CardHeader>
+                <CardBody>
+                    <Validations Mode="ValidationMode.Auto" Model="@_loginPageModel" ValidateOnLoad="false" @ref="_validations">
+                        <Validation>
+                            <Field Horizontal="true">
+                                <FieldLabel ColumnSize="ColumnSize.IsFull.OnTablet.Is2.OnDesktop">Host</FieldLabel>
+                                <FieldBody ColumnSize="ColumnSize.IsFull.OnTablet.Is10.OnDesktop">
+                                    <TextEdit Role="TextRole.Url" Placeholder="Host" @bind-Text="_loginPageModel.Host">
+                                        <Feedback>
+                                            <ValidationError/>
+                                        </Feedback>
+                                    </TextEdit>
+                                </FieldBody>
+                            </Field>
+                        </Validation>
+                        <Validation>
+                            <Field Horizontal="true">
+                                <FieldLabel ColumnSize="ColumnSize.IsFull.OnTablet.Is2.OnDesktop">Username</FieldLabel>
+                                <FieldBody ColumnSize="ColumnSize.IsFull.OnTablet.Is10.OnDesktop">
+                                    <TextEdit Role="TextRole.Text" @bind-Text="_loginPageModel.Username">
+                                        <Feedback>
+                                            <ValidationError/>
+                                        </Feedback>
+                                    </TextEdit>
+                                </FieldBody>
+                            </Field>
+                        </Validation>
+                        <Validation>
+                            <Field Horizontal="true">
+                                <FieldLabel ColumnSize="ColumnSize.IsFull.OnTablet.Is2.OnDesktop">Password</FieldLabel>
+                                <FieldBody ColumnSize="ColumnSize.IsFull.OnTablet.Is10.OnDesktop">
+                                    <TextEdit Role="TextRole.Password" @bind-Text="_loginPageModel.Password"/>
+                                </FieldBody>
+                            </Field>
+                        </Validation>
+                    </Validations>
+                    <Field Horizontal="true" JustifyContent="JustifyContent.Center">
+                        <Button Color="Color.Primary" Type="ButtonType.Submit" PreventDefaultOnSubmit="true" Clicked="@HandleLogin" Loading="_loading">
+                            Submit
+                        </Button>
+                    </Field>
+                    @if (!string.IsNullOrEmpty(_error))
+                    {
+                        <Field Horizontal="true" JustifyContent="JustifyContent.Center">
+                            <FieldLabel>@_error</FieldLabel>
+                        </Field>
+                    }
+                </CardBody>
+            </Card>
+        </Column>
+    </Row>
+</Form>

@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using Blazorise;
+using Blazorise.Sidebar;
 using Jellyfin.Blazor.Services;
 using Jellyfin.Sdk;
 using Microsoft.AspNetCore.Components;
@@ -11,7 +13,6 @@ namespace Jellyfin.Blazor.WebUI.Shared
     /// </summary>
     public partial class NavMenu
     {
-        private bool _collapseNavMenu = true;
         private BaseItemDtoQueryResult? _views;
 
         [Inject]
@@ -20,8 +21,6 @@ namespace Jellyfin.Blazor.WebUI.Shared
         [Inject]
         private IStateService StateService { get; set; } = null!;
 
-        private string? NavMenuCssClass => _collapseNavMenu ? "collapse" : null;
-
         /// <inheritdoc />
         protected override async Task OnInitializedAsync()
         {
@@ -29,11 +28,6 @@ namespace Jellyfin.Blazor.WebUI.Shared
                 .ConfigureAwait(false);
             await base.OnInitializedAsync()
                 .ConfigureAwait(false);
-        }
-
-        private void ToggleNavMenu()
-        {
-            _collapseNavMenu = !_collapseNavMenu;
         }
     }
 }

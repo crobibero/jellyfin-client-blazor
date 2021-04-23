@@ -12,17 +12,20 @@ namespace Jellyfin.Blazor.WebUI.PageModels
         /// </summary>
         [Required]
         [Url]
+        [DataType(DataType.Url)]
         public string Host { get; set; } = string.Empty;
 
         /// <summary>
         /// Gets or sets the username.
         /// </summary>
         [Required]
+        [DataType(DataType.Text)]
         public string Username { get; set; } = string.Empty;
 
         /// <summary>
         /// Gets or sets the password.
         /// </summary>
+        [DataType(DataType.Password)]
         public string? Password { get; set; }
     }
 }

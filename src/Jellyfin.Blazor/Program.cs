@@ -4,6 +4,10 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Net.Mime;
 using System.Threading.Tasks;
+using Blazor.Extensions.Logging;
+using Blazorise;
+using Blazorise.Bulma;
+using Blazorise.Icons.FontAwesome;
 using Jellyfin.Blazor.HttpClientHelpers;
 using Jellyfin.Blazor.Services;
 using Jellyfin.Sdk;
@@ -27,6 +31,10 @@ namespace Jellyfin.Blazor
         {
             var builder = WebAssemblyHostBuilder.CreateDefault(args);
             builder.RootComponents.Add<App>("#app");
+            builder.Services.AddLogging(builder =>
+            {
+                builder.AddBrowserConsole();
+            });
 
             builder.Services.AddOptions();
             builder.Services.AddAuthorizationCore();
@@ -53,6 +61,15 @@ namespace Jellyfin.Blazor
             {
                 BaseAddress = new Uri(builder.HostEnvironment.BaseAddress)
             });
+
+            // Register 3rd party services
+            builder.Services
+                .AddBlazorise(options =>
+                {
+                    options.ChangeTextOnKeyPress = true;
+                })
+                .AddBulmaProviders()
+                .AddFontAwesomeIcons();
 
             // Register services
             builder.Services.AddSingleton<IStateService, StateService>();
