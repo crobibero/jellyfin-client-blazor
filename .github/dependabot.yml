@@ -21,14 +21,3 @@ updates:
     commit-message:
       prefix: chore
       include: scope
-
-  # Fetch and update latest `npm` pkgs
-  - package-ecosystem: github-actions
-    directory: /
-    schedule:
-      interval: weekly
-      time: '00:00'
-    open-pull-requests-limit: 10
-    commit-message:
-      prefix: chore
-      include: scope
