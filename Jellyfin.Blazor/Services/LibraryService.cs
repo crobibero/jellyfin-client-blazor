@@ -13,6 +13,7 @@ namespace Jellyfin.Blazor.Services
         private readonly IItemsClient _itemsClient;
         private readonly ITvShowsClient _tvShowsClient;
         private readonly IUserLibraryClient _userLibraryClient;
+        private readonly IUserViewsClient _userViewsClient;
 
         private readonly Guid _userId;
 
@@ -23,16 +24,27 @@ namespace Jellyfin.Blazor.Services
         /// <param name="stateService">Instance of the <see cref="IStateService"/> interface.</param>
         /// <param name="tvShowsClient">Instance of the <see cref="ITvShowsClient"/> interface.</param>
         /// <param name="userLibraryClient">Instance of the <see cref="IUserLibraryClient"/> interface.</param>
+        /// <param name="userViewsClient">Instance of the <see cref="IUserViewsClient"/> interface.</param>
         public LibraryService(
             IItemsClient itemsClient,
             IStateService stateService,
             ITvShowsClient tvShowsClient,
-            IUserLibraryClient userLibraryClient)
+            IUserLibraryClient userLibraryClient,
+            IUserViewsClient userViewsClient)
         {
             _itemsClient = itemsClient;
             _tvShowsClient = tvShowsClient;
             _userLibraryClient = userLibraryClient;
+            _userViewsClient = userViewsClient;
             _userId = stateService.GetUser().Id;
+        }
+
+        /// <inheritdoc />
+        public async Task<IReadOnlyList<BaseItemDto>> GetLibraries()
+        {
+            var views = await _userViewsClient.GetUserViewsAsync(_userId)
+                .ConfigureAwait(false);
+            return views is null ? Array.Empty<BaseItemDto>() : views.Items;
         }
 
         /// <inheritdoc />
@@ -46,7 +58,10 @@ namespace Jellyfin.Blazor.Services
         }
 
         /// <inheritdoc />
-        public async Task<BaseItemDtoQueryResult> GetLibraryItems(BaseItemDto library)
+        public async Task<BaseItemDtoQueryResult> GetLibraryItems(
+            BaseItemDto library,
+            int limit,
+            int startIndex)
         {
             return await _itemsClient.GetItemsAsync(
                     userId: _userId,
@@ -54,12 +69,16 @@ namespace Jellyfin.Blazor.Services
                     sortOrder: new[] { SortOrder.Ascending },
                     parentId: library.Id,
                     includeItemTypes: new[] { GetViewType(library.CollectionType) },
-                    sortBy: new[] { "SortName" })
+                    sortBy: new[] { "SortName" },
+                    imageTypeLimit: 1,
+                    enableImageTypes: new[] { ImageType.Primary, ImageType.Banner, ImageType.Thumb },
+                    limit: limit,
+                    startIndex: startIndex)
                 .ConfigureAwait(false);
         }
 
         /// <inheritdoc />
-        public async Task<IReadOnlyList<BaseItemDto>> GetNextUp(IReadOnlyList<Guid> libraryIds)
+        public async Task<IReadOnlyList<BaseItemDto>> GetNextUp(IEnumerable<Guid> libraryIds)
         {
             var items = new List<BaseItemDto>();
             foreach (var library in libraryIds)

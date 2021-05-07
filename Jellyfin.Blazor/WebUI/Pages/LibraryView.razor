@@ -1,0 +1,22 @@
+﻿@page "/view/{LibraryId:guid}"
+@layout MainLayout
+
+@if (_library is null)
+{
+    <h1>Loading...</h1>
+}
+else
+{
+    <h1>@_library.Name</h1>
+
+    <Virtualize ItemsProvider="LoadItemsAsync" OverscanCount="10">
+        <ItemContent>
+            <div>
+                @context.Name
+            </div>
+        </ItemContent>
+        <Placeholder>
+            <div>loading...</div>
+        </Placeholder>
+    </Virtualize>
+}

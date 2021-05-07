@@ -11,6 +11,12 @@ namespace Jellyfin.Blazor.Services
     public interface ILibraryService
     {
         /// <summary>
+        /// Gets the list of visible libraries.
+        /// </summary>
+        /// <returns>The list of libraries.</returns>
+        Task<IReadOnlyList<BaseItemDto>> GetLibraries();
+
+        /// <summary>
         /// Gets the library by id.
         /// </summary>
         /// <param name="id">The library id.</param>
@@ -21,15 +27,17 @@ namespace Jellyfin.Blazor.Services
         /// Gets the library items.
         /// </summary>
         /// <param name="library">The library dto.</param>
+        /// <param name="limit">The count of items to return.</param>
+        /// <param name="startIndex">The first item index.</param>
         /// <returns>The library items.</returns>
-        Task<BaseItemDtoQueryResult> GetLibraryItems(BaseItemDto library);
+        Task<BaseItemDtoQueryResult> GetLibraryItems(BaseItemDto library, int limit, int startIndex);
 
         /// <summary>
         /// Gets the next up items.
         /// </summary>
         /// <param name="libraryIds">The list of library ids.</param>
         /// <returns>The next up items.</returns>
-        Task<IReadOnlyList<BaseItemDto>> GetNextUp(IReadOnlyList<Guid> libraryIds);
+        Task<IReadOnlyList<BaseItemDto>> GetNextUp(IEnumerable<Guid> libraryIds);
 
         /// <summary>
         /// Gets the continue watching items.
