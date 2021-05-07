@@ -39,5 +39,10 @@ namespace Jellyfin.Blazor.Services
         /// </summary>
         /// <returns>The <see cref="StateModel"/>.</returns>
         StateModel GetState();
+
+        /// <summary>
+        /// Clears the current state.
+        /// </summary>
+        void ClearState();
     }
 }

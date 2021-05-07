@@ -80,6 +80,15 @@ namespace Jellyfin.Blazor.Services
         }
 
         /// <inheritdoc />
+        public void Logout()
+        {
+            _sdkClientSettings.BaseUrl = null;
+            _sdkClientSettings.AccessToken = null;
+            _stateService.ClearState();
+            _authenticationStateProvider.StateChanged();
+        }
+
+        /// <inheritdoc />
         public async Task<bool> IsAuthenticatedAsync()
         {
             try

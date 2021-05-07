@@ -59,5 +59,13 @@ namespace Jellyfin.Blazor.Services
         {
             return _state;
         }
+
+        /// <inheritdoc />
+        public void ClearState()
+        {
+            _state.UserDto = null;
+            _state.Host = null;
+            _state.Token = null;
+        }
     }
 }

@@ -17,6 +17,11 @@ namespace Jellyfin.Blazor.Services
         Task<(bool Status, string? ErrorMessage)> AuthenticateAsync(string host, string username, string? password);
 
         /// <summary>
+        /// Log out of current session.
+        /// </summary>
+        void Logout();
+
+        /// <summary>
         /// Test whether client is currently authenticated.
         /// </summary>
         /// <returns>Authentication status.</returns>
