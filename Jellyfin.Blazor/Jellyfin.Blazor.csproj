@@ -16,11 +16,11 @@
 
     <ItemGroup>
         <PackageReference Include="Blazor.Extensions.Logging" Version="2.0.4" />
-        <PackageReference Include="Blazorise" Version="0.9.3.5" />
-        <PackageReference Include="Blazorise.Bulma" Version="0.9.3.5" />
-        <PackageReference Include="Blazorise.Icons.FontAwesome" Version="0.9.3.5" />
-        <PackageReference Include="Blazorise.Sidebar" Version="0.9.3.5" />
-        <PackageReference Include="Jellyfin.Sdk" Version="10.7.2.2" />
+        <PackageReference Include="Blazorise" Version="0.9.3.6" />
+        <PackageReference Include="Blazorise.Bulma" Version="0.9.3.6" />
+        <PackageReference Include="Blazorise.Icons.FontAwesome" Version="0.9.3.6" />
+        <PackageReference Include="Blazorise.Sidebar" Version="0.9.3.6" />
+        <PackageReference Include="Jellyfin.Sdk" Version="10.7.5" />
         <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="6.0.0-preview.3.21201.13" />
         <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="6.0.0-preview.3.21201.13" PrivateAssets="all" />
         <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Authentication" Version="6.0.0-preview.3.21201.13" />
