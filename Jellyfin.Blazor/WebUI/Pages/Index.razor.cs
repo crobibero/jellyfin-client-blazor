@@ -38,7 +38,15 @@ namespace Jellyfin.Blazor.WebUI.Pages
         private async Task InitializeDashboard()
         {
             var continueWatchingTask = LibraryService.GetContinueWatching()
-                .ContinueWith(completed => { _continueWatching = completed.IsCompleted ? completed.Result : null; }, TaskScheduler.Default);
+                .ContinueWith(
+                    completed =>
+                    {
+                        if (completed.IsCompleted)
+                        {
+                            _continueWatching = completed.Result;
+                            StateHasChanged();
+                        }
+                    }, TaskScheduler.Default);
             var librariesTask = LibraryService.GetLibraries()
                 .ContinueWith(completed => InitializeLibraries(completed.Result), TaskScheduler.Default);
             await Task.WhenAll(

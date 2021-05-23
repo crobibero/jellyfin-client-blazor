@@ -1,14 +1,7 @@
 using System;
-using System.Net;
 using System.Net.Http;
-using System.Net.Http.Headers;
-using System.Net.Mime;
 using System.Threading.Tasks;
 using Blazor.Extensions.Logging;
-using Blazorise;
-using Blazorise.Bulma;
-using Blazorise.Icons.FontAwesome;
-using Jellyfin.Blazor.HttpClientHelpers;
 using Jellyfin.Blazor.Services;
 using Jellyfin.Sdk;
 using Microsoft.AspNetCore.Components.Authorization;
@@ -31,9 +24,9 @@ namespace Jellyfin.Blazor
         {
             var builder = WebAssemblyHostBuilder.CreateDefault(args);
             builder.RootComponents.Add<App>("#app");
-            builder.Services.AddLogging(builder =>
+            builder.Services.AddLogging(logger =>
             {
-                builder.AddBrowserConsole();
+                logger.AddBrowserConsole();
             });
 
             builder.Services.AddOptions();
@@ -42,34 +35,12 @@ namespace Jellyfin.Blazor
             builder.Services.AddScoped<AuthenticationStateProvider>(p => p.GetRequiredService<JellyfinAuthStateProvider>());
 
             // Add external services
-
-            // Register app-specific services
-            /*builder.Services.AddHttpClient(NamedClient.Default, c =>
-            {
-                // TODO toggle between WASM and native HttpClient.
-                // TODO replace with client name and version.
-                c.DefaultRequestHeaders.UserAgent.Add(
-                    new ProductInfoHeaderValue(
-                        "Jellyfin-Blazor",
-                        "0.0.1"));
-                c.DefaultRequestHeaders.Accept.Add(
-                    new MediaTypeWithQualityHeaderValue(MediaTypeNames.Application.Json, 1.0));
-                c.DefaultRequestHeaders.Accept.Add(
-                    new MediaTypeWithQualityHeaderValue("#1#*", 0.8));
-            });*/
-            builder.Services.AddScoped(sp => new HttpClient
+            builder.Services.AddSingleton(_ => new HttpClient
             {
                 BaseAddress = new Uri(builder.HostEnvironment.BaseAddress)
             });
 
             // Register 3rd party services
-            builder.Services
-                .AddBlazorise(options =>
-                {
-                    options.ChangeTextOnKeyPress = true;
-                })
-                .AddBulmaProviders()
-                .AddFontAwesomeIcons();
 
             // Register services
             builder.Services.AddSingleton<IStateService, StateService>();
@@ -79,66 +50,66 @@ namespace Jellyfin.Blazor
             // Register sdk services
             builder.Services.AddSingleton<SdkClientSettings>();
 
-            // builder.Services.AddSingleton<IActivityLogClient, ActivityLogClient>();
-            // builder.Services.AddSingleton<IApiKeyClient, ApiKeyClient>();
-            // builder.Services.AddSingleton<IArtistsClient, ArtistsClient>();
-            // builder.Services.AddSingleton<IAudioClient, AudioClient>();
-            // builder.Services.AddSingleton<IBrandingClient, BrandingClient>();
-            // builder.Services.AddSingleton<IChannelsClient, ChannelsClient>();
-            // builder.Services.AddSingleton<ICollectionClient, CollectionClient>();
-            // builder.Services.AddSingleton<IConfigurationClient, ConfigurationClient>();
-            // builder.Services.AddSingleton<IDashboardClient, DashboardClient>();
-            // builder.Services.AddSingleton<IDevicesClient, DevicesClient>();
-            // builder.Services.AddSingleton<IDisplayPreferencesClient, DisplayPreferencesClient>();
-            // builder.Services.AddSingleton<IDlnaClient, DlnaClient>();
-            // builder.Services.AddSingleton<IDlnaServerClient, DlnaServerClient>();
-            // builder.Services.AddSingleton<IDynamicHlsClient, DynamicHlsClient>();
-            // builder.Services.AddSingleton<IEnvironmentClient, EnvironmentClient>();
-            // builder.Services.AddSingleton<IFilterClient, FilterClient>();
-            // builder.Services.AddSingleton<IGenresClient, GenresClient>();
-            // builder.Services.AddSingleton<IHlsSegmentClient, HlsSegmentClient>();
-            builder.Services.AddSingleton<IImageClient, ImageClient>();
-            // builder.Services.AddSingleton<IImageByNameClient, ImageByNameClient>();
-            // builder.Services.AddSingleton<IInstantMixClient, InstantMixClient>();
-            // builder.Services.AddSingleton<IItemLookupClient, ItemLookupClient>();
-            // builder.Services.AddSingleton<IItemRefreshClient, ItemRefreshClient>();
-            builder.Services.AddSingleton<IItemsClient, ItemsClient>();
-            // builder.Services.AddSingleton<ILibraryClient, LibraryClient>();
-            // builder.Services.AddSingleton<IItemUpdateClient, ItemUpdateClient>();
-            // builder.Services.AddSingleton<ILibraryStructureClient, LibraryStructureClient>();
-            // builder.Services.AddSingleton<ILiveTvClient, LiveTvClient>();
-            // builder.Services.AddSingleton<ILocalizationClient, LocalizationClient>();
-            // builder.Services.AddSingleton<IMediaInfoClient, MediaInfoClient>();
-            // builder.Services.AddSingleton<IMoviesClient, MoviesClient>();
-            // builder.Services.AddSingleton<IMusicGenresClient, MusicGenresClient>();
-            // builder.Services.AddSingleton<INotificationsClient, NotificationsClient>();
-            // builder.Services.AddSingleton<IPackageClient, PackageClient>();
-            // builder.Services.AddSingleton<IPersonsClient, PersonsClient>();
-            // builder.Services.AddSingleton<IPlaylistsClient, PlaylistsClient>();
-            // builder.Services.AddSingleton<IPlaystateClient, PlaystateClient>();
-            // builder.Services.AddSingleton<IPluginsClient, PluginsClient>();
-            // builder.Services.AddSingleton<IQuickConnectClient, QuickConnectClient>();
-            // builder.Services.AddSingleton<IRemoteImageClient, RemoteImageClient>();
-            // builder.Services.AddSingleton<IScheduledTasksClient, ScheduledTasksClient>();
-            // builder.Services.AddSingleton<ISearchClient, SearchClient>();
-            // builder.Services.AddSingleton<ISessionClient, SessionClient>();
-            // builder.Services.AddSingleton<IStartupClient, StartupClient>();
-            // builder.Services.AddSingleton<IStudiosClient, StudiosClient>();
-            // builder.Services.AddSingleton<ISubtitleClient, SubtitleClient>();
-            // builder.Services.AddSingleton<ISuggestionsClient, SuggestionsClient>();
-            // builder.Services.AddSingleton<ISyncPlayClient, SyncPlayClient>();
-            builder.Services.AddSingleton<ISystemClient, SystemClient>();
-            // builder.Services.AddSingleton<ITimeSyncClient, TimeSyncClient>();
-            // builder.Services.AddSingleton<ITrailersClient, TrailersClient>();
-            builder.Services.AddSingleton<ITvShowsClient, TvShowsClient>();
-            // builder.Services.AddSingleton<IUniversalAudioClient, UniversalAudioClient>();
-            builder.Services.AddSingleton<IUserClient, UserClient>();
-            builder.Services.AddSingleton<IUserLibraryClient, UserLibraryClient>();
-            builder.Services.AddSingleton<IUserViewsClient, UserViewsClient>();
-            // builder.Services.AddSingleton<IVideoAttachmentsClient, VideoAttachmentsClient>();
-            // builder.Services.AddSingleton<IVideoHlsClient, VideoHlsClient>();
-            // builder.Services.AddSingleton<IVideosClient, VideosClient>();
-            // builder.Services.AddSingleton<IYearsClient, YearsClient>();
+            builder.Services.AddHttpClient<IActivityLogClient, ActivityLogClient>();
+            builder.Services.AddHttpClient<IApiKeyClient, ApiKeyClient>();
+            builder.Services.AddHttpClient<IArtistsClient, ArtistsClient>();
+            builder.Services.AddHttpClient<IAudioClient, AudioClient>();
+            builder.Services.AddHttpClient<IBrandingClient, BrandingClient>();
+            builder.Services.AddHttpClient<IChannelsClient, ChannelsClient>();
+            builder.Services.AddHttpClient<ICollectionClient, CollectionClient>();
+            builder.Services.AddHttpClient<IConfigurationClient, ConfigurationClient>();
+            builder.Services.AddHttpClient<IDashboardClient, DashboardClient>();
+            builder.Services.AddHttpClient<IDevicesClient, DevicesClient>();
+            builder.Services.AddHttpClient<IDisplayPreferencesClient, DisplayPreferencesClient>();
+            builder.Services.AddHttpClient<IDlnaClient, DlnaClient>();
+            builder.Services.AddHttpClient<IDlnaServerClient, DlnaServerClient>();
+            builder.Services.AddHttpClient<IDynamicHlsClient, DynamicHlsClient>();
+            builder.Services.AddHttpClient<IEnvironmentClient, EnvironmentClient>();
+            builder.Services.AddHttpClient<IFilterClient, FilterClient>();
+            builder.Services.AddHttpClient<IGenresClient, GenresClient>();
+            builder.Services.AddHttpClient<IHlsSegmentClient, HlsSegmentClient>();
+            builder.Services.AddHttpClient<IImageClient, ImageClient>();
+            builder.Services.AddHttpClient<IImageByNameClient, ImageByNameClient>();
+            builder.Services.AddHttpClient<IInstantMixClient, InstantMixClient>();
+            builder.Services.AddHttpClient<IItemLookupClient, ItemLookupClient>();
+            builder.Services.AddHttpClient<IItemRefreshClient, ItemRefreshClient>();
+            builder.Services.AddHttpClient<IItemsClient, ItemsClient>();
+            builder.Services.AddHttpClient<ILibraryClient, LibraryClient>();
+            builder.Services.AddHttpClient<IItemUpdateClient, ItemUpdateClient>();
+            builder.Services.AddHttpClient<ILibraryStructureClient, LibraryStructureClient>();
+            builder.Services.AddHttpClient<ILiveTvClient, LiveTvClient>();
+            builder.Services.AddHttpClient<ILocalizationClient, LocalizationClient>();
+            builder.Services.AddHttpClient<IMediaInfoClient, MediaInfoClient>();
+            builder.Services.AddHttpClient<IMoviesClient, MoviesClient>();
+            builder.Services.AddHttpClient<IMusicGenresClient, MusicGenresClient>();
+            builder.Services.AddHttpClient<INotificationsClient, NotificationsClient>();
+            builder.Services.AddHttpClient<IPackageClient, PackageClient>();
+            builder.Services.AddHttpClient<IPersonsClient, PersonsClient>();
+            builder.Services.AddHttpClient<IPlaylistsClient, PlaylistsClient>();
+            builder.Services.AddHttpClient<IPlaystateClient, PlaystateClient>();
+            builder.Services.AddHttpClient<IPluginsClient, PluginsClient>();
+            builder.Services.AddHttpClient<IQuickConnectClient, QuickConnectClient>();
+            builder.Services.AddHttpClient<IRemoteImageClient, RemoteImageClient>();
+            builder.Services.AddHttpClient<IScheduledTasksClient, ScheduledTasksClient>();
+            builder.Services.AddHttpClient<ISearchClient, SearchClient>();
+            builder.Services.AddHttpClient<ISessionClient, SessionClient>();
+            builder.Services.AddHttpClient<IStartupClient, StartupClient>();
+            builder.Services.AddHttpClient<IStudiosClient, StudiosClient>();
+            builder.Services.AddHttpClient<ISubtitleClient, SubtitleClient>();
+            builder.Services.AddHttpClient<ISuggestionsClient, SuggestionsClient>();
+            builder.Services.AddHttpClient<ISyncPlayClient, SyncPlayClient>();
+            builder.Services.AddHttpClient<ISystemClient, SystemClient>();
+            builder.Services.AddHttpClient<ITimeSyncClient, TimeSyncClient>();
+            builder.Services.AddHttpClient<ITrailersClient, TrailersClient>();
+            builder.Services.AddHttpClient<ITvShowsClient, TvShowsClient>();
+            builder.Services.AddHttpClient<IUniversalAudioClient, UniversalAudioClient>();
+            builder.Services.AddHttpClient<IUserClient, UserClient>();
+            builder.Services.AddHttpClient<IUserLibraryClient, UserLibraryClient>();
+            builder.Services.AddHttpClient<IUserViewsClient, UserViewsClient>();
+            builder.Services.AddHttpClient<IVideoAttachmentsClient, VideoAttachmentsClient>();
+            builder.Services.AddHttpClient<IVideoHlsClient, VideoHlsClient>();
+            builder.Services.AddHttpClient<IVideosClient, VideosClient>();
+            builder.Services.AddHttpClient<IYearsClient, YearsClient>();
 
             var host = builder.Build();
             var clientSettings = host.Services.GetRequiredService<SdkClientSettings>();

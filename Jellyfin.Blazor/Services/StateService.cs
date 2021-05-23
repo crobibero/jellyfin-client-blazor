@@ -31,7 +31,7 @@ namespace Jellyfin.Blazor.Services
         {
             _sdkClientSettings.BaseUrl = host;
             _sdkClientSettings.AccessToken = authenticationResult.AccessToken;
-            _state.Host = host;
+            _state.Host = host.TrimEnd('/');
             _state.UserDto = authenticationResult.User;
             _state.Token = authenticationResult.AccessToken;
         }
@@ -52,6 +52,12 @@ namespace Jellyfin.Blazor.Services
         public Guid GetUserId()
         {
             return _state.UserDto?.Id ?? throw new UnauthorizedAccessException();
+        }
+
+        /// <inheritdoc />
+        public string GetHost()
+        {
+            return _state.Host ?? throw new UnauthorizedAccessException();
         }
 
         /// <inheritdoc />

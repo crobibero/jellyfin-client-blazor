@@ -16,15 +16,14 @@
 
     <ItemGroup>
         <PackageReference Include="Blazor.Extensions.Logging" Version="2.0.4" />
-        <PackageReference Include="Blazorise" Version="0.9.3.6" />
-        <PackageReference Include="Blazorise.Bulma" Version="0.9.3.6" />
-        <PackageReference Include="Blazorise.Icons.FontAwesome" Version="0.9.3.6" />
-        <PackageReference Include="Blazorise.Sidebar" Version="0.9.3.6" />
+        <PackageReference Include="BlazorPro.Spinkit" Version="1.2.0" />
+        <PackageReference Include="HeroIcons.Blazor" Version="1.0.1" />
         <PackageReference Include="Jellyfin.Sdk" Version="10.7.5.1" />
         <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="6.0.0-preview.3.21201.13" />
         <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="6.0.0-preview.3.21201.13" PrivateAssets="all" />
         <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Authentication" Version="6.0.0-preview.3.21201.13" />
         <PackageReference Include="Microsoft.Extensions.Http" Version="5.0.0" />
+        <PackageReference Include="TailBlazor.NavBar" Version="1.0.0" />
     </ItemGroup>
 
     <!-- Code Analyzers-->
@@ -33,5 +32,15 @@
         <PackageReference Include="StyleCop.Analyzers" Version="1.1.118" PrivateAssets="All" />
         <PackageReference Include="SmartAnalyzers.MultithreadingAnalyzer" Version="1.1.31" PrivateAssets="All" />
     </ItemGroup>
+    <ItemGroup>
+      <Content Remove="WebUI\App.razor" />
+    </ItemGroup>
+    <ItemGroup>
+      <Compile Remove="WebUI\App.razor.cs" />
+    </ItemGroup>
 
+    <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+        <Exec Command="npm run buildcss" />
+    </Target>
+    
 </Project>

@@ -6,9 +6,15 @@
                     <RedirectToLoginPage/>
                 </NotAuthorized>
                 <Authorizing>
-                    <!-- TODO show better loader -->
-                    <h1>Authorization in progress</h1>
-                    <p>Only visible while authorization is in progress.</p>
+                    <div class="modal-overlay sk-white">
+                        <div class="sk-wave">
+                            <div class="sk-wave-rect"></div>
+                            <div class="sk-wave-rect"></div>
+                            <div class="sk-wave-rect"></div>
+                            <div class="sk-wave-rect"></div>
+                            <div class="sk-wave-rect"></div>
+                        </div>
+                    </div>
                 </Authorizing>
             </AuthorizeRouteView>
         </Found>

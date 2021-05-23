@@ -35,6 +35,12 @@ namespace Jellyfin.Blazor.Services
         Guid GetUserId();
 
         /// <summary>
+        /// Gets the current host.
+        /// </summary>
+        /// <returns>The current host.</returns>
+        string GetHost();
+
+        /// <summary>
         /// Gets the current state.
         /// </summary>
         /// <returns>The <see cref="StateModel"/>.</returns>

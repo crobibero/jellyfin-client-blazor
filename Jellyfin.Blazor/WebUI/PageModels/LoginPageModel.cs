@@ -26,6 +26,6 @@ namespace Jellyfin.Blazor.WebUI.PageModels
         /// Gets or sets the password.
         /// </summary>
         [DataType(DataType.Password)]
-        public string? Password { get; set; }
+        public string? Password { get; set; } = string.Empty;
     }
 }
