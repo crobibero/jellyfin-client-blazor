@@ -28,12 +28,15 @@
     <h3>Libraries</h3>
     foreach (var (library, items) in _libraries)
     {
-        <h3>@library.Name</h3>
-        <ul class="grid grid-cols-2 gap-6 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6">
-            @foreach (var item in items)
-            {
-                <PrimaryCard Item="@item"/>
-            }
-        </ul>
+        if (items.Count != 0)
+        {
+            <h3>@library.Name</h3>
+            <ul class="grid grid-cols-2 gap-6 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6">
+                @foreach (var item in items)
+                {
+                    <PrimaryCard Item="@item"/>
+                }
+            </ul>
+        }
     }
 }
