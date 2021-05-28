@@ -8,17 +8,17 @@ namespace Jellyfin.Blazor.WebUI.Pages
     /// </summary>
     public partial class Logout
     {
-        [Inject]
-        private NavigationManager NavigationManager { get; set; } = null!;
+    [Inject]
+    private NavigationManager NavigationManager { get; set; } = null!;
 
-        [Inject]
-        private IAuthenticationService AuthenticationService { get; set; } = null!;
+    [Inject]
+    private IAuthenticationService AuthenticationService { get; set; } = null!;
 
-        /// <inheritdoc />
-        protected override void OnInitialized()
-        {
-            AuthenticationService.Logout();
-            NavigationManager.NavigateTo("/");
-        }
+    /// <inheritdoc />
+    protected override void OnInitialized()
+    {
+        AuthenticationService.Logout();
+        NavigationManager.NavigateTo("/");
+    }
     }
 }

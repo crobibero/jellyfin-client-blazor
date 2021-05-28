@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Blazor.Extensions.Logging;
 using Jellyfin.Blazor.Services;
 using Jellyfin.Sdk;
+using Majorsoft.Blazor.Components.CssEvents;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.Extensions.DependencyInjection;
@@ -41,6 +42,7 @@ namespace Jellyfin.Blazor
             });
 
             // Register 3rd party services
+            builder.Services.AddCssEvents();
 
             // Register services
             builder.Services.AddSingleton<IStateService, StateService>();
