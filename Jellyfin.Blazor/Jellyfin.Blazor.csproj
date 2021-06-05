@@ -33,8 +33,9 @@
         <PackageReference Include="SmartAnalyzers.MultithreadingAnalyzer" Version="1.1.31" PrivateAssets="All" />
     </ItemGroup>
 
-    <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-        <Exec Command="npm run buildcss" />
+    <Target Name="Build CSS" AfterTargets="PostBuildEvent" >
+        <Exec Command="npm run build:prod" Condition="'$(Configuration)' == 'Release'"/>
+        <Exec Command="npm run build:dev" Condition="'$(Configuration)' == 'Debug'"/>
     </Target>
     
 </Project>

@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "buildcss": "postcss wwwroot/css/app.css -o wwwroot/css/app.min.css"
+    "build:prod": "cross-env NODE_ENV=production postcss wwwroot/css/app.css -o wwwroot/css/app.min.css",
+    "build:dev": "cross-env NODE_ENV=development postcss wwwroot/css/app.css -o wwwroot/css/app.min.css"
   },
   "author": "",
   "license": "ISC",
