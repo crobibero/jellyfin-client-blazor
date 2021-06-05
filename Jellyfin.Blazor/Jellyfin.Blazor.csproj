@@ -32,12 +32,6 @@
         <PackageReference Include="StyleCop.Analyzers" Version="1.1.118" PrivateAssets="All" />
         <PackageReference Include="SmartAnalyzers.MultithreadingAnalyzer" Version="1.1.31" PrivateAssets="All" />
     </ItemGroup>
-    <ItemGroup>
-      <Content Remove="WebUI\App.razor" />
-    </ItemGroup>
-    <ItemGroup>
-      <Compile Remove="WebUI\App.razor.cs" />
-    </ItemGroup>
 
     <Target Name="PostBuild" AfterTargets="PostBuildEvent">
         <Exec Command="npm run buildcss" />

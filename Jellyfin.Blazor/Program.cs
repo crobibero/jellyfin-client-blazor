@@ -52,6 +52,7 @@ namespace Jellyfin.Blazor
             // Register sdk services
             builder.Services.AddSingleton<SdkClientSettings>();
 
+            // TODO remove unused services.
             builder.Services.AddHttpClient<IActivityLogClient, ActivityLogClient>();
             builder.Services.AddHttpClient<IApiKeyClient, ApiKeyClient>();
             builder.Services.AddHttpClient<IArtistsClient, ArtistsClient>();
