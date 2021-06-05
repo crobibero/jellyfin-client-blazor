@@ -1,4 +1,4 @@
-name: Test Build Plugin
+name: Build
 
 on:
   push:
@@ -19,7 +19,7 @@ jobs:
       - name: Setup dotnet
         uses: actions/setup-dotnet@v1
         with:
-          dotnet-version: 6.0.100-preview.3.21202.5
+          dotnet-version: 6.0.100-preview.4.21255.9
 
       - name: Install dotnet dependencies
         run: dotnet restore
