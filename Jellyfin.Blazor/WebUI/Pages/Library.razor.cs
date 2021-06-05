@@ -11,14 +11,15 @@ namespace Jellyfin.Blazor.WebUI.Pages
     /// <summary>
     /// The library view.
     /// </summary>
-    public partial class LibraryView
+    public partial class Library
     {
         private BaseItemDto? _library;
 
         private IReadOnlyList<BaseItemDto> _items = Array.Empty<BaseItemDto>();
 
         private bool _loading = true;
-        private int _pageIndex = 0;
+        private int _pageIndex;
+        private int _pageCount;
         private int _pageSize = 100;
 
         /// <summary>
@@ -34,15 +35,20 @@ namespace Jellyfin.Blazor.WebUI.Pages
         private NavigationManager NavigationManager { get; set; } = null!;
 
         [Inject]
-        private ILogger<LibraryView> Logger { get; set; } = null!;
+        private ILogger<Library> Logger { get; set; } = null!;
 
         /// <inheritdoc />
         protected override async Task OnParametersSetAsync()
         {
             try
             {
+                // Reset all parameters.
                 _loading = true;
                 _library = null;
+                _pageCount = default;
+                _pageIndex = default;
+                StateHasChanged();
+
                 _library = await LibraryService.GetLibrary(LibraryId)
                     .ConfigureAwait(false);
                 if (_library is null)
@@ -89,7 +95,17 @@ namespace Jellyfin.Blazor.WebUI.Pages
                     _pageIndex * _pageSize)
                 .ConfigureAwait(false);
             _items = queryResult.Items;
+            _pageCount = (int)Math.Ceiling(queryResult.TotalRecordCount / (_pageSize * 1d));
             _loading = false;
+            StateHasChanged();
+        }
+
+        private Task OnPageChangedAsync(int newPageIndex)
+        {
+            _loading = true;
+            _pageIndex = newPageIndex;
+            StateHasChanged();
+            return GetItems();
         }
     }
 }
