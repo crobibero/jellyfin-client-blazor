@@ -16,14 +16,23 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Setup dotnet
+      - name: Setup dotnet environment
         uses: actions/setup-dotnet@v1
         with:
           dotnet-version: 6.0.100-preview.4.21255.9
+          
+      - name: Setup node environment
+        uses: actions/setup-node@v2.1.5
+        with:
+          node-version: 14 
 
       - name: Install dotnet dependencies
         run: dotnet restore
-
+        
+      - name: Install node dependencies
+        run: npm ci --no-audit
+        working-directory: ./Jellyfin.Blazor
+        
       - name: Build
         run: dotnet build --configuration Release --no-restore
 
