@@ -39,6 +39,7 @@ namespace Jellyfin.Blazor.WebUI.Components
                 _subTitle = $"S{Item.ParentIndexNumber} E{Item.IndexNumber}";
             }
 
+            StateHasChanged();
             return base.OnInitializedAsync();
         }
     }

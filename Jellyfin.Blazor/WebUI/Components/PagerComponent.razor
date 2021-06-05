@@ -1,0 +1,28 @@
+﻿@if (PageCount > 0)
+{
+    <nav class="@NavigationCss" aria-label="Pagination">
+        <a @onclick="() => PageChanged(0)" class="@PageCss @(CurrentPage == 1 ? string.Empty : CursorHover)">
+            <span class="sr-only">First</span>
+            <ChevronDoubleLeftIcon class="@ChevronCss"/>
+        </a>
+        <a @onclick="() => PageChanged(CurrentPage - 1)" class="@PageCss @(CurrentPage == 1 ? string.Empty : CursorHover)">
+            <span class="sr-only">Previous</span>
+            <ChevronLeftIcon class="@ChevronCss"/>
+        </a>
+        @for (var i = _startPage; i <= _endPage; i++)
+        {
+            var currentIndex = i;
+            <a @onclick="() => PageChanged(currentIndex)" class="@(currentIndex == CurrentPage ? CurrentPageCss : PageCss + " " + CursorHover)">
+                @(currentIndex + 1)
+            </a>
+        }
+        <a @onclick="() => PageChanged(CurrentPage + 1)" class="@PageCss @(CurrentPage == PageCount ? string.Empty : CursorHover)">
+            <span class="sr-only">Next</span>
+            <ChevronRightIcon class="@ChevronCss"/>
+        </a>
+        <a @onclick="() => PageChanged(PageCount)" class="@PageCss @(CurrentPage == PageCount ? string.Empty : CursorHover)">
+            <span class="sr-only">Last</span>
+            <ChevronDoubleRightIcon class="@ChevronCss"/>
+        </a>
+    </nav>
+}
