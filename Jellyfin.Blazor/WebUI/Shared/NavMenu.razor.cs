@@ -5,7 +5,6 @@ using HeroIcons.Blazor;
 using HeroIcons.Blazor.Solid;
 using Jellyfin.Blazor.Services;
 using Jellyfin.Sdk;
-using Majorsoft.Blazor.Components.CssEvents.Transition;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Logging;
 
@@ -14,22 +13,14 @@ namespace Jellyfin.Blazor.WebUI.Shared
     /// <summary>
     /// The nav menu.
     /// </summary>
-    public partial class NavMenu : IAsyncDisposable
+    public partial class NavMenu
     {
         private const string LinkCssClass = "hover:bg-indigo-600 group flex items-center px-2 py-2 text-sm font-medium rounded-md cursor-pointer";
         private const string IconCssClass = "mr-3 flex-shrink-0 h-6 w-6";
 
-        private const string MenuOverlayShowCss = "transition-opacity ease-linear duration-300 opacity-100";
-        private const string MenuOverlayHideCss = "transition-opacity ease-linear duration-300 opacity-0";
-        private const string MenuShowCss = "transition ease-in-out duration-300 transform translate-x-0";
-        private const string MenuHideCss = "transition ease-in-out duration-300 transform -translate-x-full";
-        private const string MenuCloseShowCss = "ease-in-out duration-300 opacity-100";
-        private const string MenuCloseHideCss = "ease-in-out duration-300 opacity-0";
-
         private string _currentRoute = string.Empty;
         private BaseItemDtoQueryResult? _views;
         private bool _showSidebar;
-        private bool _sidebarHidden;
 
         /// <summary>
         /// Gets or sets a value indicating whether the sidebar should be shown.
@@ -45,9 +36,8 @@ namespace Jellyfin.Blazor.WebUI.Shared
                     return;
                 }
 
-                _sidebarHidden = false;
                 _showSidebar = value;
-                ShowSidebarChanged?.InvokeAsync(value);
+                ShowSidebarChanged?.InvokeAsync(value).ConfigureAwait(false);
             }
         }
 
@@ -66,12 +56,10 @@ namespace Jellyfin.Blazor.WebUI.Shared
         [Inject]
         private NavigationManager NavigationManager { get; set; } = null!;
 
-        [Inject]
-        private ITransitionEventsService TransitionEventsService { get; set; } = null!;
-
         /// <inheritdoc />
         protected override async Task OnInitializedAsync()
         {
+            ShowSidebar = false;
             _views = await UserViewsClient.GetUserViewsAsync(StateService.GetUserId())
                 .ConfigureAwait(false);
             await base.OnInitializedAsync()
@@ -80,39 +68,27 @@ namespace Jellyfin.Blazor.WebUI.Shared
 
         private void NavigateToDashboard()
         {
+            ShowSidebar = false;
             _currentRoute = string.Empty;
             NavigationManager.NavigateTo(_currentRoute);
         }
 
         private void NavigateToView(Guid libraryId)
         {
+            ShowSidebar = false;
             _currentRoute = $"/view/{libraryId}";
             NavigationManager.NavigateTo(_currentRoute);
         }
 
         private void NavigateToLogout()
         {
+            ShowSidebar = false;
             NavigationManager.NavigateTo("/logout");
         }
 
         private void ToggleMobileSidebar()
         {
             ShowSidebar = !ShowSidebar;
-        }
-
-        private void OnSidebarTransitionEnd(TransitionEventArgs e)
-        {
-            _sidebarHidden = !ShowSidebar;
-        }
-
-        /// <summary>
-        /// Dispose resources.
-        /// </summary>
-        /// <returns>The <see cref="ValueTask"/>.</returns>
-        public async ValueTask DisposeAsync()
-        {
-            await TransitionEventsService.DisposeAsync().ConfigureAwait(false);
-            GC.SuppressFinalize(this);
         }
     }
 }
