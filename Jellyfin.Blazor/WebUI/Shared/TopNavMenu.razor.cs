@@ -24,7 +24,7 @@ namespace Jellyfin.Blazor.WebUI.Shared
                 }
 
                 _showSidebar = value;
-                ShowSidebarChanged?.InvokeAsync(value);
+                ShowSidebarChanged?.InvokeAsync(value).ConfigureAwait(false);
             }
         }
 
@@ -33,10 +33,5 @@ namespace Jellyfin.Blazor.WebUI.Shared
         /// </summary>
         [Parameter]
         public EventCallback<bool>? ShowSidebarChanged { get; set; }
-
-        private void ToggleMobileSidebar()
-        {
-            ShowSidebar = !ShowSidebar;
-        }
     }
 }
