@@ -86,7 +86,7 @@ namespace Jellyfin.Blazor.WebUI.Components
 
             if (_endPage >= PageCount)
             {
-                _endPage = PageCount;
+                _endPage = PageCount - 1;
                 _startPage = PageCount - pagesToShow;
             }
 
@@ -101,7 +101,7 @@ namespace Jellyfin.Blazor.WebUI.Components
 
         private void PageChanged(int page)
         {
-            if (page != CurrentPage && page >= 0 && page <= PageCount)
+            if (page != CurrentPage && page >= 0 && page < PageCount)
             {
                 OnPageChanged?.Invoke(page);
             }
