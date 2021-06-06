@@ -65,7 +65,7 @@
                     class="ml-1 flex items-center justify-center h-10 w-10 rounded-full focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white"
                     @onclick="() => ShowSidebar = !ShowSidebar">
                 <span class="sr-only">Close sidebar</span>
-                <XIcon class="h-6 w-6 text-white"/>
+                <span class="mdi mdi-close h-6 w-6 text-white"></span>
             </button>
         </TWTransition>
 
@@ -75,7 +75,7 @@
         <div class="mt-5 flex-1 h-0 overflow-y-auto">
             <nav class="px-2 space-y-1">
                 <a @onclick="NavigateToDashboard" class="@LinkCssClass @(string.IsNullOrEmpty(_currentRoute) ? "bg-gray-600" : string.Empty)">
-                    <HomeIcon class="@IconCssClass"/>
+                    <span class="mdi mdi-home @(IconCssClass)"></span>
                     Dashboard
                 </a>
 
@@ -87,19 +87,19 @@
                             @{
                                 if (string.Equals(view.CollectionType, "movies", StringComparison.OrdinalIgnoreCase))
                                 {
-                                    <FilmIcon class="@IconCssClass"/>
+                                    <span class="mdi mdi-movie @(IconCssClass)"></span>
                                 }
                                 else if (string.Equals(view.CollectionType, "tvshows", StringComparison.OrdinalIgnoreCase))
                                 {
-                                    <CakeIcon class="@IconCssClass"/>
+                                    <span class="mdi mdi-television-classic @(IconCssClass)"></span>
                                 }
                                 else if (string.Equals(view.CollectionType, "music", StringComparison.OrdinalIgnoreCase))
                                 {
-                                    <MusicNoteIcon class="@IconCssClass"/>
+                                    <span class="mdi mdi-music @(IconCssClass)"></span>
                                 }
                                 else
                                 {
-                                    <FolderIcon class="@IconCssClass"/>
+                                    <span class="mdi mdi-folder @(IconCssClass)"></span>
                                 }
                             }
                             @view.Name
@@ -108,7 +108,7 @@
                 }
 
                 <a @onclick="NavigateToLogout" class="@LinkCssClass">
-                    <LogoutIcon class="@IconCssClass"/>
+                    <span class="mdi mdi-logout @(IconCssClass)"></span>
                     Logout
                 </a>
             </nav>
@@ -131,7 +131,7 @@
             <div class="mt-5 flex-1 flex flex-col">
                 <nav class="flex-1 px-2 space-y-1">
                     <a @onclick="NavigateToDashboard" class="@LinkCssClass @(string.IsNullOrEmpty(_currentRoute) ? "bg-gray-600" : string.Empty)">
-                        <HomeIcon class="@IconCssClass"/>
+                        <span class="mdi mdi-home @(IconCssClass)"></span>
                         Dashboard
                     </a>
 
@@ -143,19 +143,19 @@
                                 @{
                                     if (string.Equals(view.CollectionType, "movies", StringComparison.OrdinalIgnoreCase))
                                     {
-                                        <FilmIcon class="@IconCssClass"/>
+                                        <span class="mdi mdi-movie @(IconCssClass)"></span>
                                     }
                                     else if (string.Equals(view.CollectionType, "tvshows", StringComparison.OrdinalIgnoreCase))
                                     {
-                                        <CakeIcon class="@IconCssClass"/>
+                                        <span class="mdi mdi-television-classic @(IconCssClass)"></span>
                                     }
                                     else if (string.Equals(view.CollectionType, "music", StringComparison.OrdinalIgnoreCase))
                                     {
-                                        <MusicNoteIcon class="@IconCssClass"/>
+                                        <span class="mdi mdi-music @(IconCssClass)"></span>
                                     }
                                     else
                                     {
-                                        <FolderIcon class="@IconCssClass"/>
+                                        <span class="mdi mdi-folder @(IconCssClass)"></span>
                                     }
                                 }
                                 @view.Name
@@ -164,7 +164,7 @@
                     }
 
                     <a @onclick="NavigateToLogout" class="@LinkCssClass">
-                        <LogoutIcon class="@IconCssClass"/>
+                        <span class="mdi mdi-logout @(IconCssClass)"></span>
                         Logout
                     </a>
                 </nav>

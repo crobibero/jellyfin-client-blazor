@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using HeroIcons.Blazor;
-using HeroIcons.Blazor.Solid;
 using Jellyfin.Blazor.Services;
 using Jellyfin.Sdk;
 using Microsoft.AspNetCore.Components;
