@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using System.Globalization;
 using System.Threading.Tasks;
 using Jellyfin.Blazor.Services;
 using Jellyfin.Sdk;
@@ -10,9 +11,10 @@ namespace Jellyfin.Blazor.WebUI.Components
     /// <summary>
     /// The primary card component.
     /// </summary>
-    public partial class PrimaryCard
+    public partial class PrimaryCardComponent
     {
         private string? _imageUrl;
+        private string? _title;
         private string? _subTitle;
 
         /// <summary>
@@ -34,9 +36,20 @@ namespace Jellyfin.Blazor.WebUI.Components
 
             _imageUrl = $"{host}/Items/{imageItemId}/Images/{ImageType.Primary}?quality=90&maxWidth=960";
 
-            if (Item.ParentIndexNumber is not null && Item.IndexNumber is not null)
+            if (string.Equals(Item.Type, "episode", StringComparison.OrdinalIgnoreCase))
             {
-                _subTitle = $"S{Item.ParentIndexNumber} E{Item.IndexNumber}";
+                _title = Item.SeriesName;
+                _subTitle = $"S{Item.ParentIndexNumber} E{Item.IndexNumber} {Item.Name}";
+            }
+            else if (string.Equals(Item.Type, "season", StringComparison.OrdinalIgnoreCase))
+            {
+                _title = Item.SeriesName;
+                _subTitle = Item.SeasonName;
+            }
+            else
+            {
+                _title = Item.Name;
+                _subTitle = Item.ProductionYear?.ToString(CultureInfo.InvariantCulture);
             }
 
             StateHasChanged();

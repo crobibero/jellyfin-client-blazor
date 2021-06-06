@@ -6,14 +6,14 @@
     <h2>Continue Watching</h2>
     if (_continueWatching is null)
     {
-        <Wave class="sk-white"/>
+        <LoadingComponent/>
     }
     else
     {
-        <ul class="grid grid-cols-2 gap-6 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6">
+        <ul class="grid grid-cols-2 gap-6 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-10 2xl:grid-cols-12">
             @foreach (var item in _continueWatching)
             {
-                <PrimaryCard Item="item"/>
+                <PrimaryCardComponent Item="item"/>
             }
         </ul>
     }
@@ -24,14 +24,14 @@
     <h2>Next Up</h2>
     if (_nextUp is null)
     {
-        <Wave class="sk-white"/>
+        <LoadingComponent/>
     }
     else
     {
-        <ul class="grid grid-cols-2 gap-6 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6">
+        <ul class="grid grid-cols-2 gap-6 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-10 2xl:grid-cols-12">
             @foreach (var item in _nextUp)
             {
-                <PrimaryCard Item="item"/>
+                <PrimaryCardComponent Item="item"/>
             }
         </ul>
     }
@@ -46,14 +46,14 @@
             <h2>@library.Name</h2>
             if (items is null)
             {
-                <Wave class="sk-white"/>
+                <LoadingComponent/>
             }
             else
             {
-                <ul class="grid grid-cols-2 gap-6 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6">
+                <ul class="grid grid-cols-2 gap-6 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-10 2xl:grid-cols-12">
                     @foreach (var item in items)
                     {
-                        <PrimaryCard Item="@item"/>
+                        <PrimaryCardComponent Item="@item"/>
                     }
                 </ul>
             }
