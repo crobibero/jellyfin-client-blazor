@@ -10,20 +10,20 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@fontsource/noto-sans": "^4.4.2",
-    "@fontsource/noto-sans-hk": "^4.4.2",
-    "@fontsource/noto-sans-jp": "^4.4.2",
-    "@fontsource/noto-sans-kr": "^4.4.2",
-    "@fontsource/noto-sans-sc": "^4.4.2",
-    "@fontsource/noto-sans-tc": "^4.4.2",
+    "@fontsource/noto-sans": "^4.5.0",
+    "@fontsource/noto-sans-hk": "^4.5.0",
+    "@fontsource/noto-sans-jp": "^4.5.0",
+    "@fontsource/noto-sans-kr": "^4.5.0",
+    "@fontsource/noto-sans-sc": "^4.5.0",
+    "@fontsource/noto-sans-tc": "^4.5.0",
     "@mdi/font": "^5.9.55",
-    "tailwindcss": "^2.1.2"
+    "tailwindcss": "^2.2.4"
   },
   "devDependencies": {
-    "autoprefixer": "^10.2.5",
+    "autoprefixer": "^10.3.1",
     "cross-env": "^7.0.3",
-    "cssnano": "^5.0.5",
-    "postcss": "^8.3.0",
+    "cssnano": "^5.0.6",
+    "postcss": "^8.3.5",
     "postcss-cli": "^8.3.1",
     "postcss-copy": "^7.1.0",
     "postcss-import": "^14.0.2"

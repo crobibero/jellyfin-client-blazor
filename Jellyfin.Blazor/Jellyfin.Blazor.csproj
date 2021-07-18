@@ -16,10 +16,10 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="AKSoftware.Blazor.TailwindTransition" Version="1.0.0" />
+        <PackageReference Include="AKSoftware.Blazor.TailwindTransition" Version="1.1.0" />
         <PackageReference Include="Blazor.Extensions.Logging" Version="2.0.4" />
         <PackageReference Include="BlazorPro.Spinkit" Version="1.2.0" />
-        <PackageReference Include="Jellyfin.Sdk" Version="10.7.5.1" />
+        <PackageReference Include="Jellyfin.Sdk" Version="10.7.6" />
         <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="6.0.0-preview.3.21201.13" />
         <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="6.0.0-preview.3.21201.13" PrivateAssets="all" />
         <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Authentication" Version="6.0.0-preview.3.21201.13" />
